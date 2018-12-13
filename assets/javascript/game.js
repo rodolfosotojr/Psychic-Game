@@ -8,32 +8,44 @@ console.log(randomChoice);
 var wins = 0;
 var losses = 0;
 var guessesLeft = 9;
+var guess = [];
 
 //Create variables that hold references to the HTML
 
 var winsText = document.getElementById("wins-text");
 var lossesText = document. getElementById("losses-text");
-var yourGuessesLeft = document.getElementById("yourGuesses-left");
+var yourGuessesLeft = document.getElementById("guessesLeft-text");
 var yourGuessesText = document. getElementById("yourGuesses-text");
+
+//Begin game with onkeyup 
 
 document.onkeyup = function(event) {
     var userChoice = event.key;
     
-    if(userChoice === randomChoice) {
-    wins++;
-    } 
-    if(userChoice !== randomChoice) {
-    guessesLeft--;
+    if(guessesLeft < 1) {
+        losses++;
+        guessesLeft = 9;
+        guess = [];
     }
-    if(guessesLeft === 0){
-    losses++;
+
+    else if(userChoice === randomChoice) {
+    wins++;
+    guessesLeft = 9;
+    guess = [];
+    } 
+
+    else {
+    guessesLeft--;
+    guess.push(userChoice);
     }
 
     winsText.textContent = "Wins: " + wins;
     lossesText.textContent = "Losses: " + losses;
+    yourGuessesText.textContent = "Your Guess:" + guess ;
     yourGuessesLeft.textContent = "Guesses Left: " + guessesLeft;
-    
 
-    
+    console.log(yourGuessesText);
 }
+
+
 
